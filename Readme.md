@@ -3,7 +3,7 @@
   <a href="https://www.sqlite.org/docs.html" target="_blank"><img src="https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_sqlite_icon_130153.png" width="100"></a>&nbsp;&nbsp;&nbsp;
 </p>
 
-# Suivi Projet Dev
+# Suivi Projet Dev - Puissance 4
 
 # Énoncé
 
