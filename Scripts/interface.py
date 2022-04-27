@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter.font import Font
 from tkinter import messagebox
-import sqlite3
+import subprocess
 
 def accueil():
     global boutJouer,boutInscription,boutjouer,boutConnection,boutquitter,menujouer,menuInscription,menuAccueil,menuConnection
@@ -22,42 +22,10 @@ def accueil():
     menuConnection=False
 
 def inscription():
-    global l1,l2, l3, e1, e2, rb1, rb2, b, menujouer,menuInscription,menuAccueil,menuConnection
-    fenetrePrincipale = Tk()
-    l1 = Label(fenetrePrincipale, text = "Pseudo").grid(row = 0, column = 0)
-    e1 = Entry(fenetrePrincipale).grid(row = 0, column = 1)
-    b = Button(fenetrePrincipale ,text="Submit", command = inscription).grid(row = 5, column = 1)
-    if b == True:
-        messagebox.showinfo("Statut de l'inscription", "Formulaire Envoyé")
-    jouer()
-
-    menuAccueil=False
-    menujouer=True
-    menuInscription=False
-    menuConnection=False
+    subprocess.call("inscription.py")
 
 def connection():
-    con = sqlite3.connect("BDD.db")
-    cur = con.cursor()
-    fenetrePrincipale = Tk()
-    l1 = Label(fenetrePrincipale, text = "Pseudo")
-    e1 = Entry(fenetrePrincipale)
-    l2 = Label(fenetrePrincipale, text = "Mot de passe")
-    e2 = Entry(fenetrePrincipale)
-    b = Button(fenetrePrincipale ,text="Submit")
-    l1.pack()
-    e1.pack()
-    l2.pack()
-    e2.pack()
-    b.pack()
-    statement = f"SELECT Pseudo from User WHERE Pseudo='{l1}' AND HashPassword = '{l2}';"
-    cur.execute(statement)
-    if not cur.fetchone():  # An empty result evaluates to False.
-        print("Login failed")
-    else:
-        print("Welcome")
-    fenetrePrincipale.mainloop()
-
+    subprocess.call("connexion.py")
 
 def jouer():
     global boutRejoindre, boutInvite, boutRetour,menujouer,menuInscription,menuAccueil,menuConnection
@@ -113,9 +81,5 @@ boutcredit = Button(fenetre,text='Connection', width =11, command=connection, fo
 boutcredit.grid (row = 14,column = 6, padx = 10,pady = 5, columnspan =3)
 boutquitter=Button(fenetre,text='Quitter', width =10, command=fenetre.destroy, font=ftComic,bg="black",fg="blue")
 boutquitter.grid (row = 16,column = 6, padx = 10,pady = 10, columnspan =3)
-
-# Entry Box
-username = StringVar()
-password = StringVar()
 
 fenetre.mainloop()
