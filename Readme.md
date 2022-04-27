@@ -50,7 +50,6 @@ Créer un serveur de matchmaking. Ce serveur permettera de faire jouer 2 joueurs
 
 - Documentation technique pour <strong>Python</strong>: https://docs.python.org/fr/3.8/ </br>
 - Documentation technique pour <strong>sqlite</strong>: https://www.sqlite.org/docs.html </br>
-- Lien vers le <strong>Trello</strong>: https://trello.com/b/KLYcQYM4
 
 
 ## Groupe
