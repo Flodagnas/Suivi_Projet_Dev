@@ -1,6 +1,5 @@
 from tkinter import *
-import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import messagebox
 import sqlite3
 
 
@@ -21,7 +20,7 @@ def login():
 			con = sqlite3.connect('BDD.db')
 			cur = con.cursor()
             
-			cur.execute("SELECT * FROM user WHERE username=%s and password = %s",(username.get(),password.get()))
+			cur.execute("SELECT * FROM user WHERE Pseudo=? and HashPassword =?",(username.get(),password.get()))
 			row = cur.fetchone()
 
 			if row==None:
@@ -49,16 +48,12 @@ def signup():
 			try:
 				con = sqlite3.connect('BDD.db')
 				cur = con.cursor()
-				cur.execute("select * from user where username=%s",username.get())
+				cur.execute("select * from user where Pseudo=?",username.get())
 				row = cur.fetchone()
 				if row!=None:
 					messagebox.showerror("Error" , "User Name Already Exits", parent = winsignup)
 				else:
-					cur.execute("insert into user(username,password) values(%s,%s)",
-                    (
-                        username.get(),
-                        password.get()
-                    ))
+					cur.execute("insert into user(Psuedo,HashPassword) values(?,?)",(username.get(), password.get()))
 					con.commit()
 					con.close()
 					messagebox.showinfo("Success" , "Ragistration Successfull" , parent = winsignup)
