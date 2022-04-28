@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter.font import Font
-from tkinter import messagebox
 import subprocess
 
 def accueil():
@@ -28,7 +27,7 @@ def connection():
     subprocess.call("connexion.py")
 
 def jouer():
-    global boutRejoindre, boutInvite, boutRetour,menujouer,menuInscription,menuAccueil,menuConnection
+    global boutRejoindre, boutInvite, boutRetour, menujouer, menuInscription, menuAccueil, menuConnection
     destruction()
     dessin.itemconfigure( titre1 , text="Jouer")
 
@@ -53,13 +52,17 @@ def invite():
 
 
 def destruction():
-    global boutJouer,boutInscription,boutcredit,boutjouer,boutleaderboard,boutConnection,boutquitter,menujouer,menuInscription,menuConnection
+    global boutJouer,boutInscription,boutcredit,boutjouer,boutleaderboard,boutConnection,boutquitter,menujouer,menuInscription,menuConnection, menuAccueil
     if menuAccueil==True:
         boutConnection.destroy()
         boutInscription.destroy()
         boutJouer.destroy()
+    if menujouer==True:
+        boutRejoindre.destroy()
+        boutInvite.destroy()
+        boutRetour.destroy()
 
-Xmax,Ymax=1500,1000
+Xmax,Ymax=1300,700
 fenetre = Tk()
 fenetre.title("Animation avec Tkinter")
 dessin = Canvas(fenetre,bg='black',height=Ymax, width=Xmax)
@@ -76,10 +79,12 @@ titre1= dessin.create_text(selfX1,selfY1,text='Projet Matchmaking',fill='Blue', 
 boutjouer = Button(fenetre,text='Accueil', width =10, command=accueil, font=ftComic,bg="black",fg="blue")
 boutjouer.grid (row = 10,column = 6, padx = 10,pady = 10, columnspan =3)
 boutleaderboard = Button(fenetre,text='Inscription', width =11, command=inscription, font=ftComic,bg="black",fg="blue")
-boutleaderboard.grid (row =13,column =6, padx = 10,pady =5, columnspan =3)
+boutleaderboard.grid (row =12,column =6, padx = 10,pady =5, columnspan =3)
 boutcredit = Button(fenetre,text='Connection', width =11, command=connection, font=ftComic,bg="black",fg="blue")
+boutcredit.grid (row = 13,column = 6, padx = 10,pady = 5, columnspan =3)
+boutcredit = Button(fenetre,text='Jouer', width =11, command=jouer, font=ftComic,bg="black",fg="blue")
 boutcredit.grid (row = 14,column = 6, padx = 10,pady = 5, columnspan =3)
 boutquitter=Button(fenetre,text='Quitter', width =10, command=fenetre.destroy, font=ftComic,bg="black",fg="blue")
-boutquitter.grid (row = 16,column = 6, padx = 10,pady = 10, columnspan =3)
+boutquitter.grid (row = 15,column = 6, padx = 10,pady = 10, columnspan =3)
 
 fenetre.mainloop()
