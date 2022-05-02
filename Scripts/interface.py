@@ -80,7 +80,7 @@ def executSignUp():
                 print("test après insert")
                 con.commit()
                 con.close()
-                messagebox.shofenetrefo("Success" , "Registration Successfull" , parent = fenetre)
+                messagebox.showinfo("Success" , "Registration Successfull" , parent = fenetre)
             
         except Exception as es:
             print("Erreur Exception")
@@ -119,15 +119,12 @@ def executLogin():
         try:
             con = sqlite3.connect('BDD.db')
             cur = con.cursor()
-            
             cur.execute("SELECT * FROM user WHERE Pseudo=? and HashPassword =?",(userentry.get(),passentry.get()))
             row = cur.fetchone()
-
             if row==None:
                 messagebox.showerror("Error" , "Invalid User Name And Password", parent = fenetre)
-
             else:
-                messagebox.shofenetrefo("Success" , "Successfully Login" , parent = fenetre)
+                messagebox.showinfo("Success" , "Successfully Login" , parent = fenetre)
             con.close()
         except Exception as es:
             messagebox.showerror("Error" , f"Error : {str(es)}", parent = fenetre)
