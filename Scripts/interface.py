@@ -4,7 +4,7 @@ from tkinter import messagebox
 import sqlite3
 
 def accueil():
-    global boutJouer,boutInscription,boutConnection,boutquitter, Pseudo, mdp, Vérif_mdp, Submit
+    global boutJouer,boutInscription,boutConnection,boutquitter, Pseudo, mdp, Vérif_mdp, Submit, username, password, passentry, btn_login, userentry
     dessin.itemconfigure( titre1 , text="Accueil")
 
     boutInscription = Button(fenetre,text='Inscription', width =11, command=SignUp, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
@@ -26,6 +26,11 @@ def accueil():
     Vérif_mdp.destroy()
     entry_Vérif.destroy()
     Submit.destroy()
+    username.destroy()
+    password.destroy()
+    passentry.destroy()
+    btn_login.destroy()
+    userentry.destroy()
 
 #-------------------------------------------------- Partie Inscription ----------------------------------------------------#
 
@@ -86,7 +91,7 @@ def executSignUp():
 #-------------------------------------------------- Partie Connection ----------------------------------------------------#
 
 def connection():
-    global username, password, passentry, btn_login
+    global username, password, passentry, btn_login, userentry
     username = Label(fenetre, text= "User Name :" , font='Verdana 10 bold')
     username.place(x=60,y=220)
     password = Label(fenetre, text= "Password :" , font='Verdana 10 bold')
@@ -107,15 +112,15 @@ def connection():
     boutquitter.destroy()
 
 def executLogin():
-    global username, password, passentry, btn_login
-    if username.get()=="" or password.get()=="":
+    global username, password, passentry, btn_login, userentry
+    if userentry.get()=="" or passentry.get()=="":
         messagebox.showerror("Error","Enter User Name And Password",parent=fenetre)	
     else:
         try:
             con = sqlite3.connect('BDD.db')
             cur = con.cursor()
             
-            cur.execute("SELECT * FROM user WHERE Pseudo=? and HashPassword =?",(username.get(),password.get()))
+            cur.execute("SELECT * FROM user WHERE Pseudo=? and HashPassword =?",(userentry.get(),passentry.get()))
             row = cur.fetchone()
 
             if row==None:
@@ -175,7 +180,6 @@ ftComic = Font (family = 'Comic Sans MS', size = -25, underline = False, weight 
 
 #Titre#
 ftComic2 = Font (family = 'Comic Sans MS', size = 50, underline = True, weight = "bold", slant="italic")
-
 ftComic3 = Font (family = 'Comic Sans MS', size = -20, underline = False, weight = "bold", slant="italic")
 
 selfX1,selfY1=Xmax/2,40;100
