@@ -4,7 +4,7 @@ from tkinter import messagebox
 import sqlite3
 
 def accueil():
-    global boutJouer,boutInscription,boutConnection,boutquitter, Pseudo, mdp, Vérif_mdp, Submit, username, password, passentry, btn_login, userentry
+    global boutJouer,boutRetour,boutInscription,boutConnection,boutquitter, Pseudo, mdp, Vérif_mdp, Submit, username, password, passentry, btn_login, userentry
     dessin.itemconfigure( titre1 , text="Accueil")
 
     boutInscription = Button(fenetre,text='Inscription', width =11, command=SignUp, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
@@ -22,12 +22,13 @@ def accueil():
     entry_mdp.destroy()
     Vérif_mdp.destroy()
     entry_Vérif.destroy()
-    Submit.destroy()
     username.destroy()
     password.destroy()
     passentry.destroy()
     btn_login.destroy()
     userentry.destroy()
+    boutRetour.destroy()
+    Submit.destroy()
 
 #-------------------------------------------------- Partie Inscription ----------------------------------------------------#
 
@@ -147,7 +148,7 @@ def jouer():
 fenetre = Tk()
 Xmax,Ymax=fenetre.winfo_screenwidth()-50, fenetre.winfo_screenheight()-100
 fenetre.title("Suivi Projet Dev")
-dessin = Canvas(fenetre,bg='white',height=Ymax, width=Xmax)
+dessin = Canvas(fenetre,bg='#EDEDED',height=Ymax, width=Xmax)
 dessin.grid (row = 1,column = 1,columnspan =13, rowspan =20)
 
 #Texte Basique#
