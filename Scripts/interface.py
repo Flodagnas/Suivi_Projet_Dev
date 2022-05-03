@@ -127,6 +127,8 @@ def executLogin():
             messagebox.showerror("Error" , f"Error : {str(es)}", parent = fenetre)
     accueil()
 
+#-------------------------------------------------- Partie Jeu ----------------------------------------------------#
+
 def jouer():
     global boutRetour
     dessin.itemconfigure( titre1 , text="Jouer")
@@ -140,11 +142,12 @@ def jouer():
     boutquitter.destroy()
 
 
+#-------------------------------------------------- Partie Lancement Du Code ----------------------------------------------------#
 
 fenetre = Tk()
 Xmax,Ymax=fenetre.winfo_screenwidth()-50, fenetre.winfo_screenheight()-100
 fenetre.title("Suivi Projet Dev")
-dessin = Canvas(fenetre,bg='#AFADAD',height=Ymax, width=Xmax)
+dessin = Canvas(fenetre,bg='white',height=Ymax, width=Xmax)
 dessin.grid (row = 1,column = 1,columnspan =13, rowspan =20)
 
 #Texte Basique#
