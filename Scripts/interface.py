@@ -4,7 +4,7 @@ from tkinter import messagebox
 import sqlite3
 
 def accueil():
-    global boutJouer,boutInscription,boutConnection,boutquitter, Pseudo, mdp, Vérif_mdp, Submit, username, password, passentry, btn_login, userentry
+    global boutRejoindre, boutJouer,boutInscription,boutConnection,boutquitter, Pseudo, mdp, Vérif_mdp, Submit, username, password, passentry, btn_login, userentry
     dessin.itemconfigure( titre1 , text="Accueil")
 
     boutInscription = Button(fenetre,text='Inscription', width =11, command=SignUp, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
