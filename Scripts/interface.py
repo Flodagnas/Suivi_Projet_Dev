@@ -38,11 +38,11 @@ def SignUp():
     Pseudo.place(x=500,y=300)
     entry_pseudo = Entry(fenetre)
     entry_pseudo.place(x=700,y=300)
-    mdp = Label(fenetre, text="Mot de Passe",width=20,font=("bold", 10))
+    mdp = Label(fenetre, text="Mot de Passe",width=20,show="*",font=("bold", 10))
     mdp.place(x=500,y=350)
     entry_mdp = Entry(fenetre)
     entry_mdp.place(x=700,y=350)
-    Vérif_mdp = Label(fenetre, text="Vérification Mot de Passe",width=20,font=("bold", 10))
+    Vérif_mdp = Label(fenetre, text="Vérification Mot de Passe",width=20,show="*",font=("bold", 10))
     Vérif_mdp.place(x=500,y=400)
     entry_Vérif = Entry(fenetre)
     entry_Vérif.place(x=700,y=400)
@@ -145,7 +145,7 @@ fenetre = Tk()
 Xmax,Ymax=fenetre.winfo_screenwidth()-50, fenetre.winfo_screenheight()-100
 fenetre.title("Suivi Projet Dev")
 dessin = Canvas(fenetre,bg='#AFADAD',height=Ymax, width=Xmax)
-dessin.grid (row = 1,column = 1, padx = 10,pady = 15, columnspan =13, rowspan =20)
+dessin.grid (row = 1,column = 1,columnspan =13, rowspan =20)
 
 #Texte Basique#
 ftComic = Font (family = 'Comic Sans MS', size = -25, underline = False, weight = "bold", slant="italic")
