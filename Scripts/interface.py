@@ -4,7 +4,7 @@ from tkinter import messagebox
 import sqlite3
 
 def accueil():
-    global boutRejoindre, boutJouer,boutInscription,boutConnection,boutquitter, Pseudo, mdp, Vérif_mdp, Submit, username, password, passentry, btn_login, userentry
+    global boutJouer,boutInscription,boutConnection,boutquitter, Pseudo, mdp, Vérif_mdp, Submit, username, password, passentry, btn_login, userentry
     dessin.itemconfigure( titre1 , text="Accueil")
 
     boutInscription = Button(fenetre,text='Inscription', width =11, command=SignUp, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
@@ -16,9 +16,6 @@ def accueil():
     boutquitter=Button(fenetre,text='Quitter', width =10, command=fenetre.destroy, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
     boutquitter.grid (row = 15,column = 6, padx = 10,pady = 10, columnspan =3)
 
-    boutRejoindre.destroy()
-    boutInvite.destroy()
-    boutRetour.destroy()
     Pseudo.destroy()
     entry_pseudo.destroy()
     mdp.destroy()
@@ -131,13 +128,9 @@ def executLogin():
     accueil()
 
 def jouer():
-    global boutRejoindre, boutInvite, boutRetour
+    global boutRetour
     dessin.itemconfigure( titre1 , text="Jouer")
 
-    boutRejoindre = Button(fenetre,text='Rejoindre', width =11, command=rejoindre, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
-    boutRejoindre.grid (row =7,column = 3, padx = 10,pady = 10, columnspan =3)
-    boutInvite = Button(fenetre,text='Invite', width =11, command=invite, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
-    boutInvite.grid (row =7,column =9, padx = 10,pady = 10, columnspan =3)
     boutRetour = Button(fenetre,text='Retour', width =11, command=accueil, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
     boutRetour.grid (row =15,column =6, padx = 10,pady = 10, columnspan =3)
 
@@ -145,24 +138,6 @@ def jouer():
     boutInscription.destroy()
     boutConnection.destroy()
     boutquitter.destroy()
-    boutOK.destroy()
-    boutRetour2.destroy()
-
-def rejoindre():
-    global boutRejoindre, boutInvite, boutOK, boutRetour, boutRetour2
-    dessin.itemconfigure( titre1 , text="Rejoindre")
-
-    boutOK = Button(fenetre,text='Valider', width =11, command=jouer, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
-    boutOK.grid (row =7,column =10, padx = 10,pady = 10, columnspan =3)
-    boutRetour2 = Button(fenetre,text='Retour', width =11, command=jouer, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
-    boutRetour2.grid (row =7,column =2, padx = 10,pady = 10, columnspan =3)
-
-    boutRejoindre.destroy()
-    boutInvite.destroy()
-    boutRetour.destroy()
-
-def invite():
-    pass
 
 
 
