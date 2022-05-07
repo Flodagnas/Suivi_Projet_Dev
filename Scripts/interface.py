@@ -4,7 +4,7 @@ from tkinter import messagebox
 import sqlite3
 
 def accueil():
-    global boutJouer,boutRetour,boutInscription,boutConnection,boutquitter, Pseudo, mdp, Vérif_mdp, Submit, username, password, passentry, btn_login, userentry
+    global boutJouer,boutRetour,boutInscription,boutConnection,boutquitter, Pseudo, mdp, Vérif_mdp, btn_submit, username, password, passentry, btn_login, userentry
     dessin.itemconfigure( titre1 , text="Accueil")
 
     boutInscription = Button(fenetre,text='Inscription', width =11, command=SignUp, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
@@ -16,24 +16,12 @@ def accueil():
     boutquitter=Button(fenetre,text='Quitter', width =10, command=fenetre.destroy, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
     boutquitter.grid (row = 15,column = 6, padx = 10,pady = 10, columnspan =3)
 
-    Pseudo.destroy()
-    entry_pseudo.destroy()
-    mdp.destroy()
-    entry_mdp.destroy()
-    Vérif_mdp.destroy()
-    entry_Vérif.destroy()
-    username.destroy()
-    password.destroy()
-    passentry.destroy()
-    btn_login.destroy()
-    userentry.destroy()
     boutRetour.destroy()
-    Submit.destroy()
 
 #-------------------------------------------------- Partie Inscription ----------------------------------------------------#
 
 def SignUp():
-    global entry_pseudo, entry_mdp, entry_Vérif, Submit, Pseudo, mdp, Vérif_mdp
+    global entry_pseudo, entry_mdp, entry_Vérif, btn_submit, Pseudo, mdp, Vérif_mdp
     dessin.itemconfigure( titre1 , text="Inscription")
     Pseudo = Label(fenetre, text="Pseudo",width=20,font=("bold", 10))
     Pseudo.place(x=500,y=300)
@@ -47,7 +35,7 @@ def SignUp():
     Vérif_mdp.place(x=500,y=400)
     entry_Vérif = Entry(fenetre)
     entry_Vérif.place(x=700,y=400)
-    Submit = Button(fenetre, text='Submit',width=20,bg='red',fg='white', command=executSignUp).place(x=600,y=450)
+    btn_submit = Button(fenetre, text='btn_submit',width=20,bg='red',fg='white', command=executSignUp).place(x=600,y=450)
 
     boutJouer.destroy()
     boutInscription.destroy()
@@ -55,7 +43,7 @@ def SignUp():
     boutquitter.destroy()
 
 def executSignUp():
-    global entry_pseudo, entry_mdp, entry_Vérif, Submit
+    global entry_pseudo, entry_mdp, entry_Vérif, btn_submit, Pseudo, mdp, Vérif_mdp
     if entry_pseudo.get()=="" or entry_mdp.get()=="" or entry_Vérif.get()=="":
         messagebox.showerror("Error" , "All Fields Are Required" , parent = fenetre)
     if entry_mdp.get() != entry_Vérif.get():
@@ -79,6 +67,13 @@ def executSignUp():
                 con.commit()
                 con.close()
                 messagebox.showinfo("Success" , "Registration Successfull" , parent = fenetre)
+                entry_pseudo.destroy()
+                entry_mdp.destroy()
+                entry_Vérif.destroy()
+                btn_submit.destroy()
+                Pseudo.destroy()
+                mdp.destroy()
+                Vérif_mdp.destroy()
             
         except Exception as es:
             print("Erreur Exception")
@@ -124,6 +119,12 @@ def executLogin():
             else:
                 messagebox.showinfo("Success" , "Successfully Login" , parent = fenetre)
             con.close()
+            username.destroy()
+            password.destroy()
+            userentry.destroy()
+            passentry.destroy()
+            btn_login.destroy()
+
         except Exception as es:
             messagebox.showerror("Error" , f"Error : {str(es)}", parent = fenetre)
     accueil()
