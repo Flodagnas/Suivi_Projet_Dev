@@ -5,8 +5,6 @@ from random import *
 from tkinter import messagebox
 from turtle import color
 
-from ..SOCKETS.client_server import *
-
 redscore   = 0  # Score de base à zéro
 yelscore   = 0  # Score de base à zéro
 running    = 1  # Définie si la partie est en cours ou arrêtée
