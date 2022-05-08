@@ -5,7 +5,7 @@ from random import *
 from tkinter import messagebox
 from turtle import color
 
-from pyparsing import CaselessLiteral
+from ..SOCKETS.client_server import *
 
 redscore   = 0  # Score de base à zéro
 yelscore   = 0  # Score de base à zéro
