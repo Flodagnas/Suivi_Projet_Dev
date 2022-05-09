@@ -203,11 +203,4 @@ boutJouer.grid (row = 14,column = 6, padx = 10,pady = 5, columnspan =3)
 boutquitter=Button(fenetre,text='Quitter', width =10, command=fenetre.destroy, font=ftComic,bg="#D1D1D1",fg="#AA0000")
 boutquitter.grid (row = 15,column = 6, padx = 10,pady = 10, columnspan =3)
 
-menuAccueil=True
-menujouer=False
-menuInscription=False
-menuConnection=False
-menuRejoindre=False
-menuInviter=False
-
 fenetre.mainloop()
