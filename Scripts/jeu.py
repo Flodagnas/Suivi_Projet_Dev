@@ -11,9 +11,6 @@ yelscore   = 0  # Score de base à zéro
 running    = 1  # Définie si la partie est en cours ou arrêtée
 nbcases    = 0  # Permet de vérifier une égalité lorsque l'on va remplir la totalité du plateau
 manches    = 1  # Gestion des manches
-casesJ     = []
-casesR     = []
-
 
 # couleurs et polices
 gclair     = "#BFBFBF"     # ligth gray
@@ -230,7 +227,6 @@ class Canva(Canvas):
 
         if (running == 0) : # Empêche de passer à la manche suivante si le plateau n'est pas complet ou si un joueur n'a pas aligné 4 pionts
             self.update()
-            manches += 1
 
             if ((redscore == 3) or (yelscore == 3)):
                 running = 0  
@@ -252,6 +248,7 @@ class Canva(Canvas):
         
         elif yelscore < redscore :
             messagebox.showinfo("Partie terminée !", "Les Jaunes ont gagnés !")
+
 
     def win(self, qui, p, d, ): # Manche gagnée
         global running, redscore, yelscore, manches

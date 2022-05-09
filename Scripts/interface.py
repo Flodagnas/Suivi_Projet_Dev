@@ -18,26 +18,7 @@ def accueil():
     boutquitter=Button(fenetre,text='Quitter', width =10, command=fenetre.destroy, font=ftComic,bg="#D1D1D1",fg="#AA0000")
     boutquitter.grid (row = 15,column = 6, padx = 10,pady = 10, columnspan =3)
 
-    if (boutInscription == True):
-        boutJouer.destroy()
-        boutInscription.destroy()
-        boutConnection.destroy()
-        boutquitter.destroy()
-
-    elif (boutConnection == True):
-        boutJouer.destroy()
-        boutInscription.destroy()
-        boutConnection.destroy()
-        boutquitter.destroy()
-
-    elif (boutJouer == True):
-        boutJouer.destroy()
-        boutInscription.destroy()
-        boutConnection.destroy()
-        boutquitter.destroy()
-
-    else :
-        boutRetour.destroy()
+    boutRetour.destroy()
 
 #-------------------------------------------------- Partie Inscription ----------------------------------------------------#
 

@@ -7,11 +7,12 @@ import tkinter
 from tkinter import *
 
 from jeu import *
+from clientA import *
+from clientB import *
 
 # Config
 HOST = "localhost"
 BUFFER_SIZE = 2048
-
 
 class Server():
 
@@ -19,6 +20,7 @@ class Server():
     server = socket.socket()
     server.setblocking(0)
     # Liez le socket au port
+    
     server.bind((HOST, PORT))
     # Écoutez les connexions entrantes
     server.listen(5)
@@ -71,47 +73,3 @@ class Server():
                 outputs.remove(s)
             s.close()
             del msg[s]
-
-class ClientA():
-
-    def connect(self):
-        # Create a socket object
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
-
-        # Reserve a port for your service
-        PORT = 8004   
-
-        # Bind to the port
-        s.bind((HOST, PORT))            
-
-        # Now wait for client connection
-        s.listen(5)                     
-
-        while True:
-            # Establish connection with client
-            conn, addr = s.accept()     
-            print('Got connection from', addr)
-            data = [self.listerouge]
-            conn.send('Thank you for connecting')
-            conn.close()                
-
-class ClientB():                         
-
-    # Create a socket object
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
-
-    # Reserve a port for your service
-    PORT = 8044   
-
-    # Bind to the port
-    s.bind((HOST, PORT))            
-
-    # Now wait for client connection
-    s.listen(5)                     
-
-    while True:
-        # Establish connection with client
-        conn, addr = s.accept()     
-        print('Got connection from', addr)
-        conn.send('Thank you for connecting')
-        conn.close()                
