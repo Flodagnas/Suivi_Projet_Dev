@@ -1,6 +1,7 @@
 import tkinter
 import random
 from tkinter import *
+from tkinter.font import Font
 from random import *
 from tkinter import messagebox
 from turtle import color
@@ -8,11 +9,24 @@ from turtle import color
 redscore   = 0  # Score de base à zéro
 yelscore   = 0  # Score de base à zéro
 running    = 1  # Définie si la partie est en cours ou arrêtée
+nbcases    = 0  # Permet de vérifier une égalité lorsque l'on va remplir la totalité du plateau
 manches    = 1  # Gestion des manches
 casesJ     = []
 casesR     = []
 
-class Can(Canvas):
+
+# couleurs et polices
+gclair     = "#BFBFBF"     # ligth gray
+gfonce     = "#8F8F8F"     # gray
+bclair     = "#5E5E5E"     # dark gray
+bfonce     = "#000"        # black
+rfonce     = "#AA0000"     # red    
+police1    = "Times 17 normal"
+police2    = "Arial 10 normal"
+police21   = "Arial 12 bold"
+police3    = "Times 15 bold"
+
+class Canva(Canvas):
 
     global redscore, yelscore, running, manches
 
@@ -27,16 +41,8 @@ class Can(Canvas):
         self.color      = ["red", "yellow"]
         
         # Interface
-        self.gclair     = "#BFBFBF"     # ligth gray
-        self.gfonce     = "#8F8F8F"     # gray
-        self.bclair     = "#5E5E5E"     # dark gray
-        self.bfonce     = "#000"        # black    
-        self.police1    = "Times 17 normal"
-        self.police2    = "Arial 10 normal"
-        self.police21   = "Arial 10 bold"
-        self.police3    = "Times 15 bold"
-        self.can        = Canvas.__init__(self, width =450, height = 600, bg=self.gfonce, bd=0)
-        self.grid(row = 1, columnspan = 5)
+        self.canvaJeu   = Canvas.__init__(self, width = 450, height = 600, bg=gfonce, bd=0)
+        self.grid(row = 8, column = 3, padx=10, pady= 10, columnspan= 1)
 
         # On définit un joueur en aléatoire pour commencer la partie
         for _ in range(1):
@@ -45,25 +51,25 @@ class Can(Canvas):
 
         # Joueur en cours
         self.joueur = self.aleaJoueur
-        self.create_rectangle(20, 400, 120, 425, fill = self.gclair)
-        self.create_text(35, 405, text ="Joueur :", anchor = NW, fill = self.bfonce, font= self.police21)
+        self.create_rectangle(20, 400, 130, 425, fill = gclair)
+        self.create_text(35, 405, text ="Joueur :", anchor = NW, fill = bfonce, font= police21)
 
         # Continuer
-        self.create_button = tkinter.Button(self.can, text = "Continuer", command = self.continuer)
-        self.create_rectangle(330,400,405,425,fill=self.gclair)
-        self.create_text(340, 405, text ="Continuer", anchor = NW, fill = self.bfonce, font= self.police2)
+        self.create_button = tkinter.Button(self.canvaJeu, text = "Continuer", command = self.continuer)
+        self.create_rectangle(330,400,430,425,fill=gclair)
+        self.create_text(340, 405, text ="Continuer", anchor = NW, fill = bfonce, font= police21)
         
         if self.aleaJoueur == 0:
-            self.indiccouleur = self.create_oval(95, 405, 110, 420, fill = self.color[0])
+            self.indiccouleur = self.create_oval(105, 405, 120, 420, fill = self.color[0])
         elif self.aleaJoueur == 1:
-            self.indiccouleur = self.create_oval(95, 405, 110, 420, fill = self.color[1])
+            self.indiccouleur = self.create_oval(105, 405, 120, 420, fill = self.color[1])
 
         # Affichage des scores
-        self.create_rectangle(20, 440, 350, 580, fill=self.gclair)
-        self.create_text(35, 445, text= "AFFICHAGE DES SCORES", anchor = NW, fill= self.bfonce, font = self.police3)
-        self.create_text(35, 475, text= "Manche : {0}".format(str(manches)), anchor = NW, fill= self.bfonce, font = self.police3)
-        self.create_text(35, 510, text ="Rouges : {0}".format(str(redscore)), anchor = NW, fill = self.bfonce, font = self.police3)
-        self.create_text(35, 535, text ="Jaunes : {0}".format(str(yelscore)), anchor = NW, fill = self.bfonce, font = self.police3)
+        self.create_rectangle(20, 440, 350, 580, fill= gclair)
+        self.create_text(35, 445, text= "AFFICHAGE DES SCORES", anchor = NW, fill= bfonce, font = police3)
+        self.create_text(35, 475, text= "Manche : {0}".format(str(manches)), anchor = NW, fill= bfonce, font = police3)
+        self.create_text(35, 510, text ="Rouges : {0}".format(str(redscore)), anchor = NW, fill = bfonce, font = police3)
+        self.create_text(35, 535, text ="Jaunes : {0}".format(str(yelscore)), anchor = NW, fill = bfonce, font = police3)
         
         # Création des cases
         self.ovals = []
@@ -100,13 +106,18 @@ class Can(Canvas):
                     if event.x > (w, x, y, z)[0] and event.y >(w, x, y, z)[1] and event.x < (w, x, y, z)[2] and event.y < (w, x, y, z)[3]:
                         self.colorier(self.dictionnaire[(w, x, y, z)])
 
-                
-    def colorier(self, n, nb=0): # Gère la coloration des cases
+
+    # def updatelist(listerouge, listejaune):
+
+
+    def colorier(self, n): # Gère la coloration des cases
+        global running, nbcases
         
         if n in self.cases : return # Une case coloriée ne peut plus changer de couleur
            
         if n + 7 not in self.cases and n + 7 < 49: # Si la case en dessous est vide et existe, on essaie d'abord de colorier celle-là
             self.colorier(n+7)
+            nbcases += 1
             
         else:
             # Sinon on colorie celle-ci
@@ -116,9 +127,15 @@ class Can(Canvas):
             self.listejaune = [case for case in self.listejaune if case not in self.listerouge]
             self.verif(n)
             
+            nbcases += 1
+            
             # Changement de joueur
             self.joueur = [0,1][[0,1].index(self.joueur)-1]
             self.itemconfigure(self.indiccouleur, fill = self.color[self.joueur])
+        
+        # On stop quand le plateau est plein
+        if (nbcases == 49):
+            running = 0
     
     def verif(self, n): # Vérifie si la pièce ajoutée s'aligne avec trois autres déjà placées
         
@@ -209,9 +226,11 @@ class Can(Canvas):
                             return
 
     def continuer(self): # Pour passer à la manche suivante (victoire si l'un des joueurs est à 3 points)
-        global running, redscore, yelscore, liste
-        if ((self.cases ==49) or (running==0)) : # Empêche de passer à la manche suivante si le plateau n'est pas complet ou si un joueur n'a pas aligné 4 pionts
+        global running, redscore, yelscore, liste, manches
+
+        if (running == 0) : # Empêche de passer à la manche suivante si le plateau n'est pas complet ou si un joueur n'a pas aligné 4 pionts
             self.update()
+            manches += 1
 
             if ((redscore == 3) or (yelscore == 3)):
                 running = 0  
@@ -265,8 +284,27 @@ class Can(Canvas):
 
         return 1
 
+class ReglesDuJeu (Canvas):
+    def __init__(self):
+
+        # Interface Regles
+            self.canvaRegles = Canvas.__init__(self, width = 400, height = 760, bg=gfonce, bd=0)
+            self.grid(row = 8, column = 1, columnspan = 1)
+
+            # Regles du jeu
+            self.create_rectangle(20,30,380,100, fill=gclair)
+            self.create_text(120, 55, text ="REGLES DU JEU", anchor = NW, fill = rfonce, font= police3)
+
+            # Explications
+            self.create_text(30, 160, text ="Le but du jeu est d'aligner 4 pions sur \nune grille comptant 7 rangées et 7 \ncolonnes.", anchor = NW, fill = bfonce, font= police1)
+            self.create_text(30, 260, text ="Chaque joueur joue alternativement \nen laissant tomber un de ses jetons \ndans l'une des colonnes.", anchor = NW, fill = bfonce, font= police1)
+            self.create_text(30, 360, text ="Ce jeton remplit donc la plus basse \ncase inoccupée de la colonne.", anchor = NW, fill = bfonce, font= police1)
+            self.create_text(30, 440, text ="Le jeu se joue en 3 manches. \nPour gagner, il faut être le premier à \nobtenir un alignement de 4 jetons \n(horizontalement, verticalement ou \nen diagonale) de sa couleur.", anchor = NW, fill = bfonce, font= police1)
+            self.create_text(30, 600, text ="Si, alors que toutes les cases de la \ngrille de jeu sont remplies, aucun des \ndeux joueurs n'a réalisé un tel aligne\n-ment, la manche est déclarée nulle.", anchor = NW, fill = bfonce, font= police1)
+    
 if __name__ ==	"__main__" :
     window = Tk()
     window.title("Jeu du Puissance 4")
-    lecan = Can()
+    lecan = Canva()
+    lecan = ReglesDuJeu()
     window.mainloop()

@@ -3,20 +3,41 @@ from tkinter.font import Font
 from tkinter import messagebox
 import sqlite3
 
+from jeu import *
+
 def accueil():
     global boutJouer,boutRetour,boutInscription,boutConnection,boutquitter, Pseudo, mdp, Vérif_mdp, btn_submit, username, password, passentry, btn_login, userentry
-    dessin.itemconfigure( titre1 , text="Accueil")
+    dessin.itemconfigure(titre1 , text="Accueil")
 
-    boutInscription = Button(fenetre,text='Inscription', width =11, command=SignUp, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
+    boutInscription = Button(fenetre,text='Inscription', width =11, command=SignUp, font=ftComic,bg="#D1D1D1",fg="#AA0000")
     boutInscription.grid (row =12,column =6, padx = 10,pady =5, columnspan =3)
-    boutConnection = Button(fenetre,text='Connection', width =11, command=connection, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
+    boutConnection = Button(fenetre,text='Connection', width =11, command=connection, font=ftComic,bg="#D1D1D1",fg="#AA0000")
     boutConnection.grid (row = 13,column = 6, padx = 10,pady = 5, columnspan =3)
-    boutJouer = Button(fenetre,text='Jouer', width =11, command=jouer, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
+    boutJouer = Button(fenetre,text='Jouer', width =11, command=jouer, font=ftComic,bg="#D1D1D1",fg="#AA0000")
     boutJouer.grid (row = 14,column = 6, padx = 10,pady = 5, columnspan =3)
-    boutquitter=Button(fenetre,text='Quitter', width =10, command=fenetre.destroy, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
+    boutquitter=Button(fenetre,text='Quitter', width =10, command=fenetre.destroy, font=ftComic,bg="#D1D1D1",fg="#AA0000")
     boutquitter.grid (row = 15,column = 6, padx = 10,pady = 10, columnspan =3)
 
-    boutRetour.destroy()
+    if (boutInscription == True):
+        boutJouer.destroy()
+        boutInscription.destroy()
+        boutConnection.destroy()
+        boutquitter.destroy()
+
+    elif (boutConnection == True):
+        boutJouer.destroy()
+        boutInscription.destroy()
+        boutConnection.destroy()
+        boutquitter.destroy()
+
+    elif (boutJouer == True):
+        boutJouer.destroy()
+        boutInscription.destroy()
+        boutConnection.destroy()
+        boutquitter.destroy()
+
+    else :
+        boutRetour.destroy()
 
 #-------------------------------------------------- Partie Inscription ----------------------------------------------------#
 
@@ -37,6 +58,9 @@ def SignUp():
     entry_Vérif.place(x=700,y=400)
     btn_submit = Button(fenetre, text='btn_submit',width=20,bg='red',fg='white', command=executSignUp).place(x=600,y=450)
 
+    boutRetour = Button(fenetre,text='Retour', width =11, command=accueil, font=ftComic,bg="#D1D1D1",fg="#AA0000")
+    boutRetour.grid (row =15,column =6, padx = 10,pady = 10, columnspan =3)
+
     boutJouer.destroy()
     boutInscription.destroy()
     boutConnection.destroy()
@@ -44,6 +68,7 @@ def SignUp():
 
 def executSignUp():
     global entry_pseudo, entry_mdp, entry_Vérif, btn_submit, Pseudo, mdp, Vérif_mdp
+
     if entry_pseudo.get()=="" or entry_mdp.get()=="" or entry_Vérif.get()=="":
         messagebox.showerror("Error" , "All Fields Are Required" , parent = fenetre)
     if entry_mdp.get() != entry_Vérif.get():
@@ -86,18 +111,21 @@ def executSignUp():
 def connection():
     global username, password, passentry, btn_login, userentry
     username = Label(fenetre, text= "User Name :" , font='Verdana 10 bold')
-    username.place(x=60,y=220)
+    username.place(x=520,y=220)
     password = Label(fenetre, text= "Password :" , font='Verdana 10 bold')
-    password.place(x=60,y=260)
+    password.place(x=520,y=260)
     userentry = Entry(fenetre, width=40 , textvariable = username)
     userentry.focus()
-    userentry.place(x=200 , y=223)
+    userentry.place(x=650 , y=223)
     passentry = Entry(fenetre, width=40, show="*" ,textvariable = password)
-    passentry.place(x=200 , y=260)
+    passentry.place(x=650 , y=260)
 
     # button login and clear
-    btn_login = Button(fenetre, text = "Login" ,font='Verdana 10 bold',command = executLogin)
-    btn_login.place(x=200, y=293)
+    btn_login = Button(fenetre, text = "Login", width= 11, bg="#D1D1D1", fg= "#AA0000", font='Verdana 15 bold',command = executLogin)
+    btn_login.place(x=680, y=350)
+
+    boutRetour = Button(fenetre,text='Retour', width =11, command=accueil, font=ftComic,bg="#D1D1D1",fg="#AA0000")
+    boutRetour.grid (row =15,column =6, padx = 10,pady = 10, columnspan =3)
 
     boutJouer.destroy()
     boutInscription.destroy()
@@ -119,7 +147,9 @@ def executLogin():
             else:
                 messagebox.showinfo("Success" , "Successfully Login" , parent = fenetre)
             con.close()
+            
             username.destroy()
+            boutquitter.destroy()
             password.destroy()
             userentry.destroy()
             passentry.destroy()
@@ -135,19 +165,21 @@ def jouer():
     global boutRetour
     dessin.itemconfigure( titre1 , text="Jouer")
 
-    boutRetour = Button(fenetre,text='Retour', width =11, command=accueil, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
-    boutRetour.grid (row =15,column =6, padx = 10,pady = 10, columnspan =3)
+    Canva()
+    ReglesDuJeu()
+
+    boutquitter=Button(fenetre,text='Quitter', width =10, command=fenetre.destroy, font=ftComic,bg="#D1D1D1",fg="#AA0000")
+    boutquitter.grid (row = 4,column = 2, padx = 10, pady = 10, columnspan= 1)
 
     boutJouer.destroy()
     boutInscription.destroy()
     boutConnection.destroy()
     boutquitter.destroy()
 
-
 #-------------------------------------------------- Partie Lancement Du Code ----------------------------------------------------#
 
 fenetre = Tk()
-Xmax,Ymax=fenetre.winfo_screenwidth()-50, fenetre.winfo_screenheight()-100
+Xmax,Ymax=fenetre.winfo_screenwidth()-400, fenetre.winfo_screenheight()-100
 fenetre.title("Suivi Projet Dev")
 dessin = Canvas(fenetre,bg='#EDEDED',height=Ymax, width=Xmax)
 dessin.grid (row = 1,column = 1,columnspan =13, rowspan =20)
@@ -160,15 +192,15 @@ ftComic2 = Font (family = 'Comic Sans MS', size = 50, underline = True, weight =
 ftComic3 = Font (family = 'Comic Sans MS', size = -20, underline = False, weight = "bold", slant="italic")
 
 selfX1,selfY1=Xmax/2,40;100
-titre1= dessin.create_text(selfX1,selfY1,text='Projet Matchmaking',fill='Red', font= ftComic2)
+titre1= dessin.create_text(selfX1,selfY1,text='Projet Matchmaking',fill='#AA0000', font= ftComic2)
 
-boutInscription = Button(fenetre,text='Inscription', width =11, command=SignUp, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
+boutInscription = Button(fenetre,text='Inscription', width =11, command=SignUp, font=ftComic,bg="#D1D1D1",fg="#AA0000")
 boutInscription.grid (row =12,column =6, padx = 10,pady =5, columnspan =3)
-boutConnection = Button(fenetre,text='Connection', width =11, command=connection, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
+boutConnection = Button(fenetre,text='Connection', width =11, command=connection, font=ftComic,bg="#D1D1D1",fg="#AA0000")
 boutConnection.grid (row = 13,column = 6, padx = 10,pady = 5, columnspan =3)
-boutJouer = Button(fenetre,text='Jouer', width =11, command=jouer, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
+boutJouer = Button(fenetre,text='Jouer', width =11, command=jouer, font=ftComic,bg="#D1D1D1",fg="#AA0000")
 boutJouer.grid (row = 14,column = 6, padx = 10,pady = 5, columnspan =3)
-boutquitter=Button(fenetre,text='Quitter', width =10, command=fenetre.destroy, font=ftComic,bg="#D1D1D1",fg="#FF9E3D")
+boutquitter=Button(fenetre,text='Quitter', width =10, command=fenetre.destroy, font=ftComic,bg="#D1D1D1",fg="#AA0000")
 boutquitter.grid (row = 15,column = 6, padx = 10,pady = 10, columnspan =3)
 
 menuAccueil=True
