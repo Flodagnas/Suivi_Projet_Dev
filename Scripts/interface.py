@@ -18,29 +18,27 @@ def accueil():
     boutquitter=Button(fenetre,text='Quitter', width =10, command=fenetre.destroy, font=ftComic,bg="#D1D1D1",fg="#AA0000")
     boutquitter.grid (row = 15,column = 6, padx = 10,pady = 10, columnspan =3)
 
-    boutRetour.destroy()
-
 #-------------------------------------------------- Partie Inscription ----------------------------------------------------#
 
 def SignUp():
-    global entry_pseudo, entry_mdp, entry_Vérif, btn_submit, Pseudo, mdp, Vérif_mdp
+    global entry_pseudo, entry_mdp, entry_Vérif, btn_submit, Pseudo, mdp, Vérif_mdp, boutRetour1
     dessin.itemconfigure( titre1 , text="Inscription")
     Pseudo = Label(fenetre, text="Pseudo",width=20,font=("bold", 10))
-    Pseudo.place(x=500,y=300)
+    Pseudo.place(x=400,y=300)
     entry_pseudo = Entry(fenetre)
-    entry_pseudo.place(x=700,y=300)
-    mdp = Label(fenetre, text="Mot de Passe",width=20,show="*",font=("bold", 10))
-    mdp.place(x=500,y=350)
+    entry_pseudo.place(x=600,y=300)
+    mdp = Label(fenetre, text="Mot de Passe", width=20, font=("bold", 10))
+    mdp.place(x=400,y=350)
     entry_mdp = Entry(fenetre)
-    entry_mdp.place(x=700,y=350)
-    Vérif_mdp = Label(fenetre, text="Vérification Mot de Passe",width=20,show="*",font=("bold", 10))
-    Vérif_mdp.place(x=500,y=400)
+    entry_mdp.place(x=600,y=350)
+    Vérif_mdp = Label(fenetre, text="Vérification Mot de Passe",width=20,font=("bold", 10))
+    Vérif_mdp.place(x=400,y=400)
     entry_Vérif = Entry(fenetre)
-    entry_Vérif.place(x=700,y=400)
-    btn_submit = Button(fenetre, text='btn_submit',width=20,bg='red',fg='white', command=executSignUp).place(x=600,y=450)
+    entry_Vérif.place(x=600,y=400)
+    btn_submit = Button(fenetre, text='Valider',width=10,bg='red',fg='white', command=executSignUp).place(x=500,y=450)
 
-    boutRetour = Button(fenetre,text='Retour', width =11, command=accueil, font=ftComic,bg="#D1D1D1",fg="#AA0000")
-    boutRetour.grid (row =15,column =6, padx = 10,pady = 10, columnspan =3)
+    boutRetour1 = Button(fenetre,text='Retour', width =10, command=retourSignUp, font=ftComic,bg="#D1D1D1",fg="#AA0000")
+    boutRetour1.grid (row =19,column =5, padx = 5,pady = 5, columnspan =3)
 
     boutJouer.destroy()
     boutInscription.destroy()
@@ -48,7 +46,7 @@ def SignUp():
     boutquitter.destroy()
 
 def executSignUp():
-    global entry_pseudo, entry_mdp, entry_Vérif, btn_submit, Pseudo, mdp, Vérif_mdp
+    global entry_pseudo, entry_mdp, entry_Vérif, btn_submit, Pseudo, mdp, Vérif_mdp, boutRetour1
 
     if entry_pseudo.get()=="" or entry_mdp.get()=="" or entry_Vérif.get()=="":
         messagebox.showerror("Error" , "All Fields Are Required" , parent = fenetre)
@@ -80,6 +78,7 @@ def executSignUp():
                 Pseudo.destroy()
                 mdp.destroy()
                 Vérif_mdp.destroy()
+                boutRetour1.destroy()
             
         except Exception as es:
             print("Erreur Exception")
@@ -87,10 +86,24 @@ def executSignUp():
 
     accueil()
 
+def retourSignUp():
+    global entry_pseudo, entry_mdp, entry_Vérif, btn_submit, Pseudo, mdp, Vérif_mdp, boutRetour1
+
+    entry_pseudo.destroy()
+    entry_mdp.destroy()
+    entry_Vérif.destroy()
+    btn_submit.destroy()
+    Pseudo.destroy()
+    mdp.destroy()
+    Vérif_mdp.destroy()
+    boutRetour1.destroy()
+
+    accueil()
+
 #-------------------------------------------------- Partie Connection ----------------------------------------------------#
 
 def connection():
-    global username, password, passentry, btn_login, userentry
+    global username, password, passentry, btn_login, userentry, boutRetour2
     username = Label(fenetre, text= "User Name :" , font='Verdana 10 bold')
     username.place(x=520,y=220)
     password = Label(fenetre, text= "Password :" , font='Verdana 10 bold')
@@ -105,16 +118,29 @@ def connection():
     btn_login = Button(fenetre, text = "Login", width= 11, bg="#D1D1D1", fg= "#AA0000", font='Verdana 15 bold',command = executLogin)
     btn_login.place(x=680, y=350)
 
-    boutRetour = Button(fenetre,text='Retour', width =11, command=accueil, font=ftComic,bg="#D1D1D1",fg="#AA0000")
-    boutRetour.grid (row =15,column =6, padx = 10,pady = 10, columnspan =3)
+    boutRetour2 = Button(fenetre,text='Retour', width =11, command=retourLogin, font=ftComic,bg="#D1D1D1",fg="#AA0000")
+    boutRetour2.grid (row =15,column =6, padx = 10,pady = 10, columnspan =3)
 
     boutJouer.destroy()
     boutInscription.destroy()
     boutConnection.destroy()
     boutquitter.destroy()
 
+def retourLogin():
+    global boutRetour, username, password, passentry, btn_login, userentry, boutRetour2
+
+    username.destroy()
+    boutquitter.destroy()
+    password.destroy()
+    userentry.destroy()
+    passentry.destroy()
+    btn_login.destroy()
+    boutRetour2.destroy()
+
+    accueil()
+
 def executLogin():
-    global username, password, passentry, btn_login, userentry
+    global username, password, passentry, btn_login, userentry, boutRetour2
     if userentry.get()=="" or passentry.get()=="":
         messagebox.showerror("Error","Enter User Name And Password",parent=fenetre)	
     else:
@@ -135,6 +161,7 @@ def executLogin():
             userentry.destroy()
             passentry.destroy()
             btn_login.destroy()
+            boutRetour2.destroy()
 
         except Exception as es:
             messagebox.showerror("Error" , f"Error : {str(es)}", parent = fenetre)
@@ -183,12 +210,5 @@ boutJouer = Button(fenetre,text='Jouer', width =11, command=jouer, font=ftComic,
 boutJouer.grid (row = 14,column = 6, padx = 10,pady = 5, columnspan =3)
 boutquitter=Button(fenetre,text='Quitter', width =10, command=fenetre.destroy, font=ftComic,bg="#D1D1D1",fg="#AA0000")
 boutquitter.grid (row = 15,column = 6, padx = 10,pady = 10, columnspan =3)
-
-menuAccueil=True
-menujouer=False
-menuInscription=False
-menuConnection=False
-menuRejoindre=False
-menuInviter=False
 
 fenetre.mainloop()
